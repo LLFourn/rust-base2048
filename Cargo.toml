@@ -4,12 +4,14 @@ version = "0.1.2-alpha.0"
 authors = ["LLFourn <lloyd.fourn@gmail.com>"]
 license = "0BSD"
 homepage = "https://github.com/LLFourn/rust-base2048"
+repository = "https://github.com/LLFourn/rust-base2048"
 documentation = "https://docs.rs/base2048"
-description = "base2048 encoding"
+description = "base2048 encoding for efficient encoding of binary data on twitter"
 edition = "2018"
 readme = "README.md"
 keywords = ["twitter"]
 categories = ["encoding"]
+
 
 [package.metadata.docs.rs]
 features = ["nightly"]

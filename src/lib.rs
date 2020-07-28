@@ -6,10 +6,9 @@
 extern crate alloc;
 use alloc::{string::String, vec::Vec};
 
-pub const TABLE: &'static [char; 2048] = &include!("./table.src");
-pub const REV_TABLE: &'static [u16; 4347] = &include!("./rev_table.src");
+pub const ENC_TABLE: &'static [char; 2048] = &include!("./enc_table.src");
+pub const DEC_TABLE: &'static [u16; 4347] = &include!("./dec_table.src");
 pub const TAIL: &'static [char; 8] = &['།', '༎', '༏', '༐', '༑', '༆', '༈', '༒'];
-
 /// Encode some bytes using base2048 encoding
 ///
 /// # Example
@@ -17,7 +16,7 @@ pub const TAIL: &'static [char; 8] = &['།', '༎', '༏', '༐', '༑', '༆',
 /// let some_bytes = b"some utf8 bytes to encode more compactly";
 /// assert_eq!(
 ///     base2048::encode(some_bytes),
-///     "ڒےԞєԎϥຫǟۂਚԻєҋࢣदയٲʖҔยႪϡݒقؽݞԚཨആ༎"
+///     "ظڝөПәΰศƪڍথԅПяޒߡೲױɡјවၕάێנלۻӥ༟ಖ༎"
 /// );
 /// ```
 pub fn encode(bytes: &[u8]) -> String {
@@ -33,7 +32,7 @@ pub fn encode(bytes: &[u8]) -> String {
             // if we need a byte or less then take what we need and push it
             remaining = 8 - need;
             let index = (stage << need) | (byte >> remaining);
-            ret.push(TABLE[index as usize]);
+            ret.push(ENC_TABLE[index as usize]);
             // put what remains in stage
             stage = byte & ((1 << remaining) - 1);
         } else {
@@ -44,7 +43,7 @@ pub fn encode(bytes: &[u8]) -> String {
     }
 
     // there are some bits that haven't been put into the string
-    // (happens whenever bytes is not divisible by 11)
+    // (happens whenever 8 * bytes.len() is not divisible by 11).
     if remaining > 0 {
         // We need to disambiguate between a terminating character conveying =< 3 or > 8 bits.
         // e.g. is this character just finishing the last byte or is it doing that and adding another byte.
@@ -53,7 +52,7 @@ pub fn encode(bytes: &[u8]) -> String {
             ret.push(TAIL[stage as usize]);
         } else {
             // we're adding > 3 bits no need for a tail since it's not ambigious
-            ret.push(TABLE[stage as usize])
+            ret.push(ENC_TABLE[stage as usize])
         }
     }
 
@@ -61,10 +60,9 @@ pub fn encode(bytes: &[u8]) -> String {
 }
 
 /// Decode a base2048 encoded string
-///
 /// # Example
 /// ```
-/// let encoded_message = "ڒےԞєԎϥຫǟۂਚԻєҋࢣदയٲʖҔยႪϡݒقؽݞԚཨആ༎";
+/// let encoded_message = "ظڝөПәΰศƪڍথԅПяޒߡೲױɡјවၕάێנלۻӥ༟ಖ༎";
 /// assert_eq!(
 ///     base2048::decode(encoded_message),
 ///     Some(b"some utf8 bytes to encode more compactly".to_vec())
@@ -81,7 +79,7 @@ pub fn decode(string: &str) -> Option<Vec<u8>> {
         // keep track of the misalignment between byte boundary.  This is useful when we get to the
         // last character and it's NOT a tail character.
         residue = (residue + 11) % 8;
-        let (n_new_bits, new_bits) = match REV_TABLE[c as usize] {
+        let (n_new_bits, new_bits) = match DEC_TABLE[c as usize] {
             0xFFFF => {
                 if chars.peek().is_some() {
                     return None;
