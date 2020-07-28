@@ -1,0 +1,17 @@
+[package]
+name = "base2048"
+version = "0.1.0"
+authors = ["LLFourn <lloyd.fourn@gmail.com>"]
+license = "0BSD"
+homepage = "https://github.com/LLFourn/rust-base2048"
+documentation = "https://docs.rs/base2048"
+description = "base2048 encoding"
+edition = "2018"
+readme = "README.md"
+
+[dev-dependencies]
+hex-literal = "0.2"
+
+[features]
+default = []
+nightly = []
