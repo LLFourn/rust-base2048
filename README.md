@@ -19,7 +19,7 @@ The api will probably remain the same but the encoding may very well change! YMV
 
 ``` toml
 [dependencies]
-base2048 = "0.1.0"
+base2048 = "0.1"
 
 ```
 
