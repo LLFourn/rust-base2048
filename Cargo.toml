@@ -8,6 +8,11 @@ documentation = "https://docs.rs/base2048"
 description = "base2048 encoding"
 edition = "2018"
 readme = "README.md"
+keywords = ["twitter"]
+categories = ["encoding"]
+
+[package.metadata.docs.rs]
+features = ["nightly"]
 
 [dev-dependencies]
 hex-literal = "0.2"
