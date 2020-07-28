@@ -1,6 +1,6 @@
 [package]
 name = "base2048"
-version = "0.1.2-alpha.0"
+version = "0.2.0"
 authors = ["LLFourn <lloyd.fourn@gmail.com>"]
 license = "0BSD"
 homepage = "https://github.com/LLFourn/rust-base2048"
