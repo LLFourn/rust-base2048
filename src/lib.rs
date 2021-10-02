@@ -1,5 +1,4 @@
-#![cfg_attr(feature = "nightly", feature(external_doc))]
-#![cfg_attr(feature = "nightly", doc(include = "../README.md"))]
+#![doc = include_str!("../README.md")]
 #![no_std]
 
 #[macro_use]
@@ -7,7 +6,7 @@ extern crate alloc;
 use alloc::{string::String, vec::Vec};
 
 pub const ENC_TABLE: &'static [char; 2048] = &include!("./enc_table.src");
-pub const DEC_TABLE: &'static [u16; 4347] = &include!("./dec_table.src");
+pub const DEC_TABLE: &'static [u16; 4335] = &include!("./dec_table.src");
 pub const TAIL: &'static [char; 8] = &['།', '༎', '༏', '༐', '༑', '༆', '༈', '༒'];
 /// Encode some bytes using base2048 encoding
 ///
@@ -16,7 +15,7 @@ pub const TAIL: &'static [char; 8] = &['།', '༎', '༏', '༐', '༑', '༆',
 /// let some_bytes = b"some utf8 bytes to encode more compactly";
 /// assert_eq!(
 ///     base2048::encode(some_bytes),
-///     "ظڝөПәΰศƪڍথԅПяޒߡೲױɡјවၕάێנלۻӥ༟ಖ༎"
+///     "ԵտћΖыɘ༔ĢկଜѷΖχ৩ਨඕԔǙϐດ႙ɔकԈԄडї࿊ൡ༎"
 /// );
 /// ```
 pub fn encode(bytes: &[u8]) -> String {
@@ -62,7 +61,7 @@ pub fn encode(bytes: &[u8]) -> String {
 /// Decode a base2048 encoded string
 /// # Example
 /// ```
-/// let encoded_message = "ظڝөПәΰศƪڍথԅПяޒߡೲױɡјවၕάێנלۻӥ༟ಖ༎";
+/// let encoded_message = "ԵտћΖыɘ༔ĢկଜѷΖχ৩ਨඕԔǙϐດ႙ɔकԈԄडї࿊ൡ༎";
 /// assert_eq!(
 ///     base2048::decode(encoded_message),
 ///     Some(b"some utf8 bytes to encode more compactly".to_vec())
@@ -172,11 +171,11 @@ mod test {
 
     #[test]
     fn wrong_tail_character() {
-        assert!(decode("ၐߥۻ༞ɵ༎").is_some());
+        assert!(decode("ետћζы༎").is_some());
         // this is a valid tail character but conveys too many bits.
-        assert!(decode("ၐߥۻ༞ɵ༑").is_none());
-        // these are both invalid
-        assert!(decode("ၐߥۻ༞ɵX").is_none());
-        assert!(decode("ၐߥۻ༞ɵ༎X").is_none());
+        assert!(decode("ետћζы༑").is_none());
+        // these are both invalid because of the X at the end
+        assert!(decode("ետћζыX").is_none());
+        assert!(decode("ետћζы༎X").is_none());
     }
 }
