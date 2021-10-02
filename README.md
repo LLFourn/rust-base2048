@@ -13,16 +13,20 @@ base2048 encoding for packing data into tweets!
 This is an experimental module for encoding chunks of 11 bits into a single character [as
 counted by twitter](https://developer.twitter.com/en/docs/basics/counting-characters).
 This allows you to encode 385 (280 * 11  / 8) bytes in tweet.
-The api will probably remain the same but the encoding may very well change! YMV.
 
-I've put a bit of effort into making sure all the characters used are visible to people running with standard font packages on most platforms. **please open an issue with info about your device/OS if a character is not showing properly (e.g. you see a box looking thing).**
+The main things this crate put effort into getting right:
+
+1. The characters display on most platforms.
+2. No right-to-left characters are used.
+3. No weird punctuation characters are included.
+
 See [base2048.txt](./base2048.txt) for the ordered list of characters.
 
 ## Use
 
 ``` toml
 [dependencies]
-base2048 = "0.2"
+base2048 = "1"
 ```
 
 ## Example
@@ -33,7 +37,7 @@ let bytes = hex_literal::hex!("0100000001574981a3fb74e6632493fcab62947b07a6c228c
 
 // but with base2048 you can fit it - twice!
 let encoded = base2048::encode(&bytes[..]);
-assert_eq!(encoded, "ŐØØŝقగސץແȑɯၻଥѩཛသఢшચબƌইಖၵဂȤމŘØŉਠະиǐƆԛҧဆжணལણБדڿۀ؎ӭಋހഐӣॵܡǁӏџၦݑǩƿڼݯӦસͰӟٹІɼಆମভଫదআภมǏۍโകКШΟछෂЫरഇܥۀɅఌგஏලڥҹӿϷݘঐؾЋǑবא٭٭ნЅৎ؋ۂØØƦযݩΆѮယઌȮϥǧཌǊҲқಠސၯȨØØØ");
+assert_eq!(encoded, "ÅØØÒԾഅ১ԍཨƉǧႰశϡညၹഒπ௫ఆĄ૪ൡႪ၈ƜসÍØµ୷ཥΰňþҕЙ၌ήಞထ௴ͿӻआइԚџഴফඣѕળशĹсϗႦॳšķ۹ঙјఒȨёՑʮǴയౠଣౘഖ૩໙ໜŇऔ༩ටΑΟɈઉຖΣઠඛऽइƽ೩ႼಓຍևЫѱʟॺଅԻͳŉଢӸ྾྾აʭମԙउØØĞଥওȲϦၵழƦʍş႞łФЍ൯১ႨƠØØØ");
 assert_eq!(base2048::decode(&encoded), Some(bytes.to_vec()));
 ```
 ## Previous Work
