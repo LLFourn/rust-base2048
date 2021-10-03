@@ -26,7 +26,7 @@ See [base2048.txt](./base2048.txt) for the ordered list of characters.
 
 ``` toml
 [dependencies]
-base2048 = "1"
+base2048 = "2"
 ```
 
 ## Example
