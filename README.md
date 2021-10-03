@@ -26,7 +26,7 @@ See [base2048.txt](./base2048.txt) for the ordered list of characters.
 
 ``` toml
 [dependencies]
-base2048 = "1"
+base2048 = "2"
 ```
 
 ## Example
@@ -37,7 +37,7 @@ let bytes = hex_literal::hex!("0100000001574981a3fb74e6632493fcab62947b07a6c228c
 
 // but with base2048 you can fit it - twice!
 let encoded = base2048::encode(&bytes[..]);
-assert_eq!(encoded, "ÅØØÒԾഅ১ԍཨƉǧႰశϡညၹഒπ௫ఆĄ૪ൡႪ၈ƜসÍØµ୷ཥΰňþҕЙ၌ήಞထ௴ͿӻआइԚџഴফඣѕળशĹсϗႦॳšķ۹ঙјఒȨёՑʮǴയౠଣౘഖ૩໙ໜŇऔ༩ටΑΟɈઉຖΣઠඛऽइƽ೩ႼಓຍևЫѱʟॺଅԻͳŉଢӸ྾྾აʭମԙउØØĞଥওȲϦၵழƦʍş႞łФЍ൯১ႨƠØØØ");
+assert_eq!(encoded, "ÅØØÒԾഅ১ԍཨƉǧႴశϡဎၽഒπ௫ఆĄ૪ൡႮ၌ƜসÍØµ୷ཥΰňþҕЙၐήಞပ௴ͿӻआइԚџഴফඣѕળशĹсϗႪॳšķ۹ঙјఒȨёՑʮǴയౠଣౘഖ૩໙ໜŇऔ༩ටΑΟɈઉຖΣઠඛऽइƽ೩ჀಓຍևЫѱʟॺଅԻͳŉଢӸ྾྾ეʭମԙउØØĞଥওȲϦၹழƦʍşဂłФЍ൯১ႬƠØØØ");
 assert_eq!(base2048::decode(&encoded), Some(bytes.to_vec()));
 ```
 ## Previous Work

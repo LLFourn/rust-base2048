@@ -6,7 +6,7 @@ extern crate alloc;
 use alloc::{string::String, vec::Vec};
 
 pub const ENC_TABLE: &'static [char; 2048] = &include!("./enc_table.src");
-pub const DEC_TABLE: &'static [u16; 4335] = &include!("./dec_table.src");
+pub const DEC_TABLE: &'static [u16; 4339] = &include!("./dec_table.src");
 pub const TAIL: &'static [char; 8] = &['།', '༎', '༏', '༐', '༑', '༆', '༈', '༒'];
 /// Encode some bytes using base2048 encoding
 ///
@@ -15,7 +15,7 @@ pub const TAIL: &'static [char; 8] = &['།', '༎', '༏', '༐', '༑', '༆',
 /// let some_bytes = b"some utf8 bytes to encode more compactly";
 /// assert_eq!(
 ///     base2048::encode(some_bytes),
-///     "ԵտћΖыɘ༔ĢկଜѷΖχ৩ਨඕԔǙϐດ႙ɔकԈԄडї࿊ൡ༎"
+///     "ԵտћΖыɘ༔ĢկଜѷΖχ৩ਨඕԔǙϐດႣɔकԈԄडї࿊ൡ༎"
 /// );
 /// ```
 pub fn encode(bytes: &[u8]) -> String {
@@ -61,7 +61,7 @@ pub fn encode(bytes: &[u8]) -> String {
 /// Decode a base2048 encoded string
 /// # Example
 /// ```
-/// let encoded_message = "ԵտћΖыɘ༔ĢկଜѷΖχ৩ਨඕԔǙϐດ႙ɔकԈԄडї࿊ൡ༎";
+/// let encoded_message = "ԵտћΖыɘ༔ĢկଜѷΖχ৩ਨඕԔǙϐດႣɔकԈԄडї࿊ൡ༎";
 /// assert_eq!(
 ///     base2048::decode(encoded_message),
 ///     Some(b"some utf8 bytes to encode more compactly".to_vec())

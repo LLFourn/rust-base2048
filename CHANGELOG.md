@@ -1,5 +1,9 @@
 # CHANGELOG
 
+## v2.0.0
+
+UTF-8 code points 0x0FD5..0x0FD8 (࿕ ࿖ ࿗ ࿘) rather conspicuously do not display on windows.
+I removed them from the encoding.
 
 ## v1.0.0
 
